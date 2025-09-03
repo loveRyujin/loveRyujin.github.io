@@ -31,6 +31,18 @@
  pageRef = "go"
  weight = 10
 
+[[main]]
+ name = "Python"
+ parent = "编程语言"
+ pageRef = "python"
+ weight = 10
+
+[[main]]
+ name = "TypeScript"
+ parent = "编程语言"
+ pageRef = "typescript"
+ weight = 10
+
 #[[main]]
 #  name = "example sub-menu 2"
 #  parent = "Parent"
