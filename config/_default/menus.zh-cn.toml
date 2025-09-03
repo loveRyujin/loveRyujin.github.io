@@ -10,20 +10,26 @@
 # overridden by providing a weight value. The menu will then be
 # ordered by weight from lowest to highest.
 
-#[[main]]
-#  name = "Blog"
-#  pageRef = "posts"
-#  weight = 10
+[[main]]
+ name = "容器和k8s"
+ pageRef = "container-and-k8s"
+ weight = 3
 
-#[[main]]
-#  name = "Parent"
-#  weight = 20
+[[main]]
+ name = "杂谈"
+ pageRef = "essay"
+ weight = 4
 
-#[[main]]
-#  name = "example sub-menu 1"
-#  parent = "Parent"
-#  pageRef = "posts"
-#  weight = 20
+[[main]]
+ name = "编程语言"
+ pageRef = "programming-language"
+ weight = 5
+
+[[main]]
+ name = "Go"
+ parent = "编程语言"
+ pageRef = "go"
+ weight = 10
 
 #[[main]]
 #  name = "example sub-menu 2"
