@@ -3,7 +3,7 @@ weight = 20
 icon = 'fas fa-cloud'
 showSummary = true
 date = '2025-09-02T23:56:29+08:00'
-draft = true
+draft = false
 title = '容器和K8S'
 tags = ["容器", "K8S"]
 +++
