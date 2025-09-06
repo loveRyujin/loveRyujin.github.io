@@ -43,6 +43,20 @@
  pageRef = "typescript"
  weight = 10
 
+# Github
+[[main]]
+  name = "GitHub"
+  url = "https://github.com/loveRyujin"
+  weight = 90
+  pre = "github"  
+
+# RSS Feed
+[[main]]
+  name = "RSS"
+  url = "/index.xml"
+  weight = 100
+  pre = "rss"  
+
 #[[main]]
 #  name = "example sub-menu 2"
 #  parent = "Parent"
