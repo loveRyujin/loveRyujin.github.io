@@ -55,5 +55,13 @@ minikube service hello-minikube
 
 到此我们就成功使用minikube启动k8s，同时创建应用并访问它。
 
+同时我们可以通过监控面板来观察k8s集群的状态。
+```shell
+minikube dashboard
+```
+![minikube-dashboard](./minikube-dashboard.png)
+
+---
+
 ## 参考
 1. [minikube-start](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fwindows%2Fx86-64%2Fstable%2Fwindows+package+manager#Service)
