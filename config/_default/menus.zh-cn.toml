@@ -22,7 +22,6 @@
 
 [[main]]
  name = "编程语言"
- pageRef = "programming-language"
  weight = 5
 
 [[main]]
