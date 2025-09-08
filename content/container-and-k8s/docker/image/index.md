@@ -43,6 +43,99 @@ Docker 镜像的本质是一个轻量级、可执行的、独立的文件包，�
 
 第五层存放应用程序的实际源代码。
 
+## 构建镜像
+先写一个简单的Go程序。
+```go
+package main
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"net/http"
+	"os"
+	"os/signal"
+)
+
+func SayHello(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("success receive request")
+	fmt.Fprintf(w, "Hello, World!")
+}
+
+func main() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", SayHello)
+
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: mux,
+	}
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt)
+
+	go func() {
+		fmt.Println("Server is running on port 8080")
+		if err := srv.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
+			fmt.Println(err)
+		}
+	}()
+
+	<-quit
+	fmt.Println("Server is stopping")
+	srv.Shutdown(context.Background())
+	fmt.Println("Server is stopped")
+
+}
+
+```
+然后编写Dockerfile。
+```Dockerfile
+# 使用官方 Go 镜像作为构建环境
+FROM golang:1.24-alpine AS builder
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制 go.mod 和 go.sum 文件
+COPY go.mod go.sum ./
+
+# 下载依赖
+RUN go mod tidy
+
+# 复制源代码
+COPY . .
+
+# 构建应用程序
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
+
+# 使用轻量级的 alpine 镜像作为运行环境
+FROM alpine:latest
+
+# 设置工作目录
+WORKDIR /root/
+
+# 从构建阶段复制可执行文件
+COPY --from=builder /app/main .
+
+# 暴露端口 8080
+EXPOSE 8080
+
+# 运行应用程序
+CMD ["./main"]
+
+```
+
+执行docker构建命令并运行容器。
+```shell
+## 构建docker镜像
+docker build -t go-hello-world .
+
+## 运行docker容器
+docker run -p 8080:8080 go-hello-world
+
+```
+
 ---
 
 ## 参考
