@@ -42,6 +42,12 @@
  pageRef = "typescript"
  weight = 10
 
+[[main]]
+ name = "Rust"
+ parent = "编程语言"
+ pageRef = "rust"
+ weight = 10
+
 # Github
 [[main]]
   name = "GitHub"
