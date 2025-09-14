@@ -1,7 +1,7 @@
 +++
 date = '2025-09-14T12:53:10+08:00'
 draft = false
-title = 'Basic_concept'
+title = 'Rust基础概念'
 tags = ["Rust"]
 +++
 
