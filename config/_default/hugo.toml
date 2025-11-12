@@ -17,6 +17,9 @@ buildFuture = false
 
 enableEmoji = true
 
+[params]
+  mainSections = ["rust", "container-and-k8s", "go", "python", "typescript", "essay"]
+
 # googleAnalytics = "G-XXXXXXXXX"
 
 [pagination]
