@@ -3,6 +3,8 @@ date = '2025-09-14T12:53:10+08:00'
 draft = false
 title = 'Rust基础概念'
 tags = ["Rust"]
+series = ["Rust入门教程"]
+series_order = 1
 +++
 
 ## 变量

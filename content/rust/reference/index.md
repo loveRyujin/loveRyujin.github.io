@@ -3,6 +3,8 @@ date = '2025-11-12T23:21:30+08:00'
 draft = false
 title = '引用与借用'
 tags = ["Rust"]
+series = ["Rust入门教程"]
+series_order = 3
 +++
 
 ## 概念

@@ -3,6 +3,8 @@ date = '2025-11-06T23:44:21+08:00'
 draft = false
 title = '认识所有权'
 tags = ["Rust"]
+series = ["Rust入门教程"]
+series_order = 2
 +++
 
 ## 概念
