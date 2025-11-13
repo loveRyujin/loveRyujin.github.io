@@ -3,6 +3,8 @@ date = '2025-09-06T14:32:40+08:00'
 draft = false
 title = 'Minikube安装k8s'
 tags = ["k8s"]
+series = ["容器和K8S"]
+series_order = 3
 +++
 
 ## 安装minikube

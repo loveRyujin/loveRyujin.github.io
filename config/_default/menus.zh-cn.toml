@@ -50,9 +50,8 @@
 
 [[main]]
  name = "系列教程"
- parent = "编程语言"
  pageRef = "series"
- weight = 11
+ weight = 2
 
 # Github
 [[main]]

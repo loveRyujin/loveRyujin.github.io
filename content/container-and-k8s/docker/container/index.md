@@ -3,6 +3,8 @@ date = '2025-09-07T20:24:08+08:00'
 draft = false
 title = '容器基本概念'
 tags = ["容器", "docker"]
+series = ["容器和K8S"]
+series_order = 1
 +++
 
 ## 基本概念
