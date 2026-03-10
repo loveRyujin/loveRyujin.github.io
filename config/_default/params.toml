@@ -15,7 +15,7 @@ enableCodeCopy = false
 
 replyByEmail = false
 
-mainSections = ["rust", "container-and-k8s", "go", "python", "typescript"]
+mainSections = ["rust", "container-and-k8s", "go", "python", "typescript", "essay"]
 # robots = ""
 
 disableImageOptimization = false
