@@ -42,10 +42,10 @@ class _ConditionalTransition:
 BaseNode 定义节点的生命周期规范、执行能力和连接不同节点的能力。
 
 生命周期三阶段：
-- `prep`：从共享存储 shared 中获取特定数据，进行预处理。
-- `exec`：拿到 prep 阶段的结果，执行计算逻辑。
-- `post`：结合 prep 和 exec 阶段的结果，进行后置处理，并将特定数据写回共享存储 shared 中。
-三个阶段默认都是 pass，需要子类去重写实现。
+- `prep`：从共享存储 shared 中获取特定数据，进行预处理。比如查询数据库、读取文件或者将数据序列化为字符串。
+- `exec`：拿到 prep 阶段的结果，执行计算逻辑。比如可以执行 LLM 调用、工具调用等。
+- `post`：结合 prep 和 exec 阶段的结果，进行后置处理，并将特定数据写回共享存储 shared 中。比如更新数据库、记录结果等等。
+三个阶段默认实现都是 pass，需要子类去重写实现。
 
 执行入口：
 - `run`：运行节点。
@@ -69,6 +69,33 @@ class Node(BaseNode):
                 if self.cur_retry==self.max_retries-1: return self.exec_fallback(prep_res,e)
                 if self.wait>0: time.sleep(self.wait)
 ```
-- max_retries：最大重试次数
-- wait：等待的时间间隔
-- exec_fallback：最大重试次数过后走到的兜底逻辑
+- max_retries：最大重试次数。
+- wait：等待的时间间隔。
+- exec_fallback：最大重试次数过后走到的兜底逻辑。默认情况下只是重新抛出异常。
+
+## Flow
+Flow 编排节点为图，最简单的可以构造一个串行序列，然后在此基础之上可以添加分支、引入循环。
+```python
+class Flow(BaseNode):
+    def __init__(self,start=None): super().__init__(); self.start_node=start
+    def start(self,start): self.start_node=start; return start
+    def get_next_node(self,curr,action):
+        nxt=curr.successors.get(action or "default")
+        if not nxt and curr.successors: warnings.warn(f"Flow ends: '{action}' not found in {list(curr.successors)}")
+        return nxt
+    def _orch(self,shared,params=None):
+        curr,p,last_action =copy.copy(self.start_node),(params or {**self.params}),None
+        while curr: curr.set_params(p); last_action=curr._run(shared); curr=copy.copy(self.get_next_node(curr,last_action))
+        return last_action
+    def _run(self,shared): p=self.prep(shared); o=self._orch(shared); return self.post(shared,p,o)
+    def post(self,shared,prep_res,exec_res): return exec_res
+```
+- _run：Flow 核心逻辑不是计算而是编排，所以运行时阶段主要包括 prep、_orch、post。
+- get_next_node： 根据当前节点的 post 阶段返回的 action 跳转到下一个节点。
+- _orch：具体的编排方法，负责循环执行整个图。
+
+注意的是，Flow 继承 BaseNode，本身也可以抽象视作一个节点。
+
+
+## 参考
+1. [PocketFlow官方文档](https://the-pocket.github.io/PocketFlow/) 
