@@ -96,6 +96,13 @@ class Flow(BaseNode):
 
 注意的是，Flow 继承 BaseNode，本身也可以抽象视作一个节点。
 
+## BatchNode
+BatchNode 继承自 Node，重写其 _exec 方法。
+```python
+class BatchNode(Node):
+    def _exec(self,items): return [super(BatchNode,self)._exec(i) for i in (items or [])]
+```
+- _exec：重写父类 Node 的 _exec 方法，接受 items ，对 items 的每一个元素执行 Node 的 _exec方法，即重试+兜底逻辑。
 
 ## 参考
 1. [PocketFlow官方文档](https://the-pocket.github.io/PocketFlow/) 
