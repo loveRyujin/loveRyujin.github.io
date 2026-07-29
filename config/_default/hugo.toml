@@ -9,6 +9,8 @@ enableGitInfo = true
 
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 
+ignoreFiles = ['\\.obsidian']
+
 enableRobotsTXT = true
 summaryLength = 0
 
@@ -71,3 +73,9 @@ enableEmoji = true
       name = 'fragmentrefs'
       type = 'fragments'
       weight = 10
+
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+    files = ["! .obsidian", "! .obsidian/**"]
