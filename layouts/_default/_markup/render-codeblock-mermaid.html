@@ -1,0 +1,5 @@
+{{/* Convert ```mermaid fences into Blowfish-compatible Mermaid containers.
+   Use plain {{ .Inner }} so Hugo escapes once; htmlEscape would double-encode arrows. */}}
+<div class="mermaid" align="center">
+  <pre>{{ .Inner }}</pre>
+</div>
